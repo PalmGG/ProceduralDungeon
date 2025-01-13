@@ -63,8 +63,14 @@ public class Grid //https://youtu.be/waEsGu--9P8
                     clr = Color.blue;
                     break;
             }
-            debugTextArray[x, y].text = platform;
-            debugTextArray[x, y].color = clr;
+            if (debugTextArray[x, y].tag != "Start" && debugTextArray[x, y].tag != "Goal")
+            {
+                debugTextArray[x, y].tag = platform;
+                debugTextArray[x, y].text = platform;
+                debugTextArray[x, y].color = clr;
+                
+            }
+            
         }
 
     }

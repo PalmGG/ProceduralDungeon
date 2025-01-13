@@ -54,7 +54,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "f1ba0d36-48eb-4cd5-b651-1c94a6531f70",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -90,6 +90,15 @@
                     "name": "LeftMClick",
                     "type": "Button",
                     "id": "f74a2f98-fc8c-401e-b2bf-ed346ad04f8a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MiddleMClick",
+                    "type": "Button",
+                    "id": "9e88bb52-cdaf-48d4-bedf-884830a8bc7c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -535,6 +544,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "LeftMClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a5d82f28-8a88-4681-97fe-c31bc2e14c74",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MiddleMClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d0b7f657-b6ac-49c2-998a-58eab6b7ed44",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MiddleMClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

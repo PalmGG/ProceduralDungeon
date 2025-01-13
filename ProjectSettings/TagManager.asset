@@ -9,6 +9,11 @@ TagManager:
   - 2
   - gs
   - nan
+  - 3
+  - 2ndCam
+  - Start
+  - Platform
+  - Goal
   layers:
   - Default
   - TransparentFX

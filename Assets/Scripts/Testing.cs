@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.InputSystem;
+using UnityEditor.ShaderGraph;
 
 public class Testing : MonoBehaviour
 {
@@ -18,10 +19,14 @@ public class Testing : MonoBehaviour
     int cellSize = 10;
     int selectedValue = 0;
     string tagV;
+    GameObject player;
 
-    
+
+
     private void Start()
     {
+        player = GameObject.FindWithTag("Player");
+        player.SetActive(false);
         //Settings Title
         WorldText.CreateWorldText("gs", "Grid settings", null, new Vector3(0, -10, 8), 40, Color.white, TextAnchor.MiddleCenter);
         //Categories
@@ -32,6 +37,8 @@ public class Testing : MonoBehaviour
         WorldText.CreateWorldText("0", "1", null, new Vector3(-10, -11, 0), 40, Color.blue, TextAnchor.MiddleCenter);
         WorldText.CreateWorldText("1", "1", null, new Vector3(0, -11, 0), 40, Color.white, TextAnchor.MiddleCenter);
         WorldText.CreateWorldText("2", "10", null, new Vector3(13, -11, 0), 40, Color.white, TextAnchor.MiddleCenter);
+        WorldText.CreateWorldText("3", "10", null, new Vector3(13, -11, 0), 40, new Vector4(0,0,0,0), TextAnchor.MiddleCenter);
+        
 
         //Selected value code
 
@@ -68,8 +75,12 @@ public class Testing : MonoBehaviour
         if (mmb == 0 || mmb == 1)
         {
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            grid.SetValue(worldPosition, mmb);
-            mmb++;
+            if(grid.GetValue(worldPosition) != 0)
+            {
+                grid.SetValue(worldPosition, mmb);
+                mmb++;
+            }
+            
             Debug.Log(worldPosition);
         }
     }
@@ -141,7 +152,10 @@ public class Testing : MonoBehaviour
             TextMesh t = tm.GetComponent<TextMesh>();
             if (selectedValue > 0)
             {
-                t.color = Color.white;
+                if(selectedValue < 3) 
+                {
+                    t.color = Color.white;
+                }  
                 selectedValue--;
                 tagV = selectedValue.ToString();
                 tm = GameObject.FindWithTag(tagV);
@@ -152,10 +166,19 @@ public class Testing : MonoBehaviour
     }
     void OnVRight()
     {
+        if(selectedValue == 4)
+        {
+            Debug.Log("1");
+            selectedValue++;
+            Debug.Log(selectedValue);
+            Debug.Log(player);
+            player.SetActive(true);
+            Debug.Log(player);
+        }
         if (selectedValue == 3)
         {
             selectedValue++;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 tagV = i.ToString();
                 Destroy(GameObject.FindWithTag(tagV));
@@ -172,6 +195,7 @@ public class Testing : MonoBehaviour
             Camera.main.orthographic = true;
             Camera.main.transform.position = new Vector3(op.x + pw * 0.5f, 30, op.y + ph * 0.5f);
             Camera.main.orthographicSize = Mathf.Max(pw * Screen.height / Screen.width * 0.5f, ph * 0.5f) + 1;
+            
         }
         if (selectedValue < 4)
         {
