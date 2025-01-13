@@ -33,7 +33,6 @@ public class MoveFinalSystem : MonoBehaviour
     {
       if (Physics.Raycast(transform.position, -transform.up, castDistance, groundLayer))
         {
-            Debug.Log("Physics has hit the 2nd tower");
             return true;
         }
         else
@@ -58,8 +57,9 @@ public class MoveFinalSystem : MonoBehaviour
         jumpforce = 0;
     }
 
-    private void OnJump()
+    void OnJump()
     {
+        Debug.Log("Jamp");
         if (isGrounded() == true)
         {
             jumpforce = 20;

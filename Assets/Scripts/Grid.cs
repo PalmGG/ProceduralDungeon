@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Grid //https://youtu.be/waEsGu--9P8
@@ -21,7 +22,7 @@ public class Grid //https://youtu.be/waEsGu--9P8
         {
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
-                debugTextArray[x, y] = WorldText.CreateWorldText("nan",x + ", " + y, null, GetWorldPosition(x, y) + new Vector3(cellSize, 0, cellSize) * 0.5f, 20, Color.white, TextAnchor.MiddleCenter);
+                debugTextArray[x, y] = WorldText.CreateWorldText("nan", x + ", " + y, null, GetWorldPosition(x, y) + new Vector3(cellSize, 0, cellSize) * 0.5f, 20, Color.white, TextAnchor.MiddleCenter);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
             }
@@ -48,33 +49,63 @@ public class Grid //https://youtu.be/waEsGu--9P8
             gridArray[x, y] = value;
             string platform = "";
             Color clr = Color.white;
-            switch(value)
+            switch (value)
             {
-                case 0:
+                case 1:
                     platform = "Start";
                     clr = Color.green;
                     break;
-                case 1:
+                case 2:
                     platform = "Goal";
                     clr = Color.red;
                     break;
-                case 2:
+                case 3:
                     platform = "Platform";
                     clr = Color.blue;
                     break;
             }
+            //Remove if
             if (debugTextArray[x, y].tag != "Start" && debugTextArray[x, y].tag != "Goal")
             {
                 debugTextArray[x, y].tag = platform;
                 debugTextArray[x, y].text = platform;
                 debugTextArray[x, y].color = clr;
-                
+
             }
-            
+
         }
 
     }
-
+    
+    /*public void DBug()
+    {
+        GameObject go;
+        TextMesh tm;
+        for (int x = 0; x < gridArray.GetLength(0); x++)
+        {
+            for (int y = 0; y < gridArray.GetLength(1); y++)
+            {
+                Debug.Log(gridArray[x, y]);
+                switch (gridArray[x, y])
+                {
+                    //debugTextArray[x, y]
+                    case 0:
+                        break;
+                    case 1:
+                        go = GameObject.FindGameObjectWithTag("Start");
+                        tm = go.GetComponent<TextMesh>();
+                        Destroy(tm);
+                        break;
+                    case 2:
+                        go = GameObject.FindGameObjectWithTag("Goal");
+                        break;
+                    case 3:
+                        go = GameObject.FindGameObjectWithTag("Platform");
+                        break;
+                }
+            }
+        }
+    }*/
     public void SetValue(Vector3 worldPosition, int value)
     {
         int x, y;

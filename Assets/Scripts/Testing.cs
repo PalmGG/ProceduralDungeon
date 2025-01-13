@@ -13,20 +13,21 @@ public class Testing : MonoBehaviour
 
     private Grid grid;
 
-    int mmb = 0;
+    int mmb = 1;
     int width = 1;
     int height = 1;
     int cellSize = 10;
     int selectedValue = 0;
     string tagV;
     GameObject player;
+    GameObject ob;
 
 
 
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
-        player.SetActive(false);
+        player.GetComponent<MoveFinalSystem>().enabled = false;
         //Settings Title
         WorldText.CreateWorldText("gs", "Grid settings", null, new Vector3(0, -10, 8), 40, Color.white, TextAnchor.MiddleCenter);
         //Categories
@@ -37,8 +38,8 @@ public class Testing : MonoBehaviour
         WorldText.CreateWorldText("0", "1", null, new Vector3(-10, -11, 0), 40, Color.blue, TextAnchor.MiddleCenter);
         WorldText.CreateWorldText("1", "1", null, new Vector3(0, -11, 0), 40, Color.white, TextAnchor.MiddleCenter);
         WorldText.CreateWorldText("2", "10", null, new Vector3(13, -11, 0), 40, Color.white, TextAnchor.MiddleCenter);
-        WorldText.CreateWorldText("3", "10", null, new Vector3(13, -11, 0), 40, new Vector4(0,0,0,0), TextAnchor.MiddleCenter);
-        
+        WorldText.CreateWorldText("3", "10", null, new Vector3(13, -11, 0), 40, new Vector4(0, 0, 0, 0), TextAnchor.MiddleCenter);
+
 
         //Selected value code
 
@@ -58,30 +59,37 @@ public class Testing : MonoBehaviour
     //https://gamedevbeginner.com/how-to-convert-the-mouse-position-to-world-space-in-unity-2d-3d/
     void OnLeftMClick()
     {
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        grid.SetValue(worldPosition, 2);
-        Debug.Log(worldPosition);
+        if (selectedValue == 4)
+        {
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (grid.GetValue(worldPosition) != 1 && grid.GetValue(worldPosition) != 2)
+            {
+                grid.SetValue(worldPosition, 3);
+            }
+        }
     }
 
     void OnMiddleMClick()
     {
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log(grid.GetValue(worldPosition));
+        if (selectedValue == 4)
+        {
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log(grid.GetValue(worldPosition));
+        }
+
 
     }
 
     void OnRightMClick()
     {
-        if (mmb == 0 || mmb == 1)
+        if (mmb == 1 || mmb == 2)
         {
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if(grid.GetValue(worldPosition) != 0)
+            if (grid.GetValue(worldPosition) != 1 && grid.GetValue(worldPosition) != 2)
             {
                 grid.SetValue(worldPosition, mmb);
                 mmb++;
             }
-            
-            Debug.Log(worldPosition);
         }
     }
 
@@ -152,10 +160,10 @@ public class Testing : MonoBehaviour
             TextMesh t = tm.GetComponent<TextMesh>();
             if (selectedValue > 0)
             {
-                if(selectedValue < 3) 
+                if (selectedValue < 3)
                 {
                     t.color = Color.white;
-                }  
+                }
                 selectedValue--;
                 tagV = selectedValue.ToString();
                 tm = GameObject.FindWithTag(tagV);
@@ -164,16 +172,70 @@ public class Testing : MonoBehaviour
             }
         }
     }
+    void DBug()
+    {
+        GameObject go;
+        GameObject ngo;
+        int gv;
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                gv = grid.GetValue(x, y);
+                switch (gv)
+                {
+                    case 0:
+                        go = GameObject.FindGameObjectWithTag("nan");
+                        Destroy(go);
+                        break;
+                    case 1:
+                        go = GameObject.FindGameObjectWithTag("Start");
+                        ngo = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        ngo.tag = "Start";
+                        ngo.layer = 3;
+                        ngo.transform.position = go.transform.position;
+                        ngo.transform.localScale = new Vector3(cellSize, 1, cellSize);
+                        Destroy(go);
+
+                        break;
+                    case 2:
+                        go = GameObject.FindGameObjectWithTag("Goal");
+                        ngo = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        ngo.tag = "Goal";
+                        ngo.layer = 3;
+                        ngo.transform.position = go.transform.position;
+                        ngo.transform.localScale = new Vector3(cellSize, 1, cellSize);
+                        Destroy(go);
+                        break;
+                    case 3:
+                        go = GameObject.FindGameObjectWithTag("Platform");
+                        ngo = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        ngo.tag = "Platform";
+                        ngo.layer = 3;
+                        ngo.transform.position = go.transform.position;
+                        Debug.Log(cellSize);
+                        ngo.transform.localScale = new Vector3(cellSize, 1, cellSize);
+                        Destroy(go);
+                        break;
+                }
+            }
+        }
+    }
     void OnVRight()
     {
-        if(selectedValue == 4)
+        if (selectedValue == 4)
         {
-            Debug.Log("1");
+            Debug.Log("Debug start");
+            DBug();
+            Debug.Log("Debug end");
             selectedValue++;
-            Debug.Log(selectedValue);
-            Debug.Log(player);
-            player.SetActive(true);
-            Debug.Log(player);
+            GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+            ob = GameObject.FindGameObjectWithTag("Start");
+            Debug.Log(new Vector3(ob.transform.position.x, ob.transform.position.y + 10, ob.transform.position.z));
+            player.transform.position = new Vector3(ob.transform.position.x, ob.transform.position.y + 10, ob.transform.position.z);
+            player.GetComponent<MoveFinalSystem>().enabled = true;
+            player.GetComponent<Testing>().enabled = false;
         }
         if (selectedValue == 3)
         {
@@ -195,7 +257,7 @@ public class Testing : MonoBehaviour
             Camera.main.orthographic = true;
             Camera.main.transform.position = new Vector3(op.x + pw * 0.5f, 30, op.y + ph * 0.5f);
             Camera.main.orthographicSize = Mathf.Max(pw * Screen.height / Screen.width * 0.5f, ph * 0.5f) + 1;
-            
+
         }
         if (selectedValue < 4)
         {
