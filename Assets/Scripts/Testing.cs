@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.InputSystem;
 using UnityEditor.ShaderGraph;
+using System.Collections;
+using System;
 
 public class Testing : MonoBehaviour
 {
@@ -19,7 +21,9 @@ public class Testing : MonoBehaviour
     int cellSize = 10;
     int selectedValue = 0;
     string tagV;
+    Boolean teleport = false;
     GameObject player;
+    Rigidbody rb;
     GameObject ob;
 
 
@@ -27,7 +31,9 @@ public class Testing : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
+        rb = player.GetComponent<Rigidbody>();
         player.GetComponent<MoveFinalSystem>().enabled = false;
+        player.GetComponent<camRotate>().enabled = false;
         //Settings Title
         WorldText.CreateWorldText("gs", "Grid settings", null, new Vector3(0, -10, 8), 40, Color.white, TextAnchor.MiddleCenter);
         //Categories
@@ -57,6 +63,15 @@ public class Testing : MonoBehaviour
         */
     }
     //https://gamedevbeginner.com/how-to-convert-the-mouse-position-to-world-space-in-unity-2d-3d/
+
+    private void FixedUpdate()
+    {
+        if(teleport == true)
+        {
+            rb.transform.position = new Vector3(ob.transform.position.x, ob.transform.position.y + 10, ob.transform.position.z);
+            teleport = false;
+        }
+    }
     void OnLeftMClick()
     {
         if (selectedValue == 4)
@@ -187,16 +202,17 @@ public class Testing : MonoBehaviour
                 {
                     case 0:
                         go = GameObject.FindGameObjectWithTag("nan");
-                        Destroy(go);
+                        DestroyImmediate(go);
                         break;
                     case 1:
                         go = GameObject.FindGameObjectWithTag("Start");
                         ngo = GameObject.CreatePrimitive(PrimitiveType.Cube);
                         ngo.tag = "Start";
                         ngo.layer = 3;
+                        ngo.GetComponent<MeshRenderer>().material.color = Color.green;
                         ngo.transform.position = go.transform.position;
                         ngo.transform.localScale = new Vector3(cellSize, 1, cellSize);
-                        Destroy(go);
+                        DestroyImmediate(go);
 
                         break;
                     case 2:
@@ -204,19 +220,20 @@ public class Testing : MonoBehaviour
                         ngo = GameObject.CreatePrimitive(PrimitiveType.Cube);
                         ngo.tag = "Goal";
                         ngo.layer = 3;
+                        ngo.GetComponent<MeshRenderer>().material.color = Color.red;
                         ngo.transform.position = go.transform.position;
                         ngo.transform.localScale = new Vector3(cellSize, 1, cellSize);
-                        Destroy(go);
+                        DestroyImmediate(go);
                         break;
                     case 3:
                         go = GameObject.FindGameObjectWithTag("Platform");
                         ngo = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                        ngo.tag = "Platform";
+                        ngo.tag = "RealPlat";
                         ngo.layer = 3;
                         ngo.transform.position = go.transform.position;
                         Debug.Log(cellSize);
                         ngo.transform.localScale = new Vector3(cellSize, 1, cellSize);
-                        Destroy(go);
+                        DestroyImmediate(go);
                         break;
                 }
             }
@@ -232,10 +249,15 @@ public class Testing : MonoBehaviour
             selectedValue++;
             GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
             ob = GameObject.FindGameObjectWithTag("Start");
-            Debug.Log(new Vector3(ob.transform.position.x, ob.transform.position.y + 10, ob.transform.position.z));
-            player.transform.position = new Vector3(ob.transform.position.x, ob.transform.position.y + 10, ob.transform.position.z);
+            Debug.Log($"Before setting player position: {player.transform.position}");
+            teleport = true;
+            //rb.transform.position = new Vector3(ob.transform.position.x, ob.transform.position.y + 10, ob.transform.position.z);
+            Debug.Log($"After setting player position: {player.transform.position}");
+            Debug.Log(player);
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            player.GetComponent<camRotate>().enabled = true;
             player.GetComponent<MoveFinalSystem>().enabled = true;
-            player.GetComponent<Testing>().enabled = false;
+            //player.GetComponent<Testing>().enabled = false;
         }
         if (selectedValue == 3)
         {
@@ -243,13 +265,13 @@ public class Testing : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 tagV = i.ToString();
-                Destroy(GameObject.FindWithTag(tagV));
+                GameObject obj = GameObject.FindWithTag(tagV);
+                if (obj != null)
+                {
+                    Destroy(obj);
+                }
             }
-            GameObject[] gs = GameObject.FindGameObjectsWithTag("gs");
-            foreach (GameObject go in gs)
-            {
-                Destroy(go);
-            }
+            StartCoroutine(DestroyObjectsWithDelay());
 
             grid = new Grid(width, height, cellSize, op);
             pw = width * cellSize;
@@ -257,12 +279,9 @@ public class Testing : MonoBehaviour
             Camera.main.orthographic = true;
             Camera.main.transform.position = new Vector3(op.x + pw * 0.5f, 30, op.y + ph * 0.5f);
             Camera.main.orthographicSize = Mathf.Max(pw * Screen.height / Screen.width * 0.5f, ph * 0.5f) + 1;
-
         }
         if (selectedValue < 4)
         {
-
-
             if (selectedValue < 3)
             {
                 tagV = selectedValue.ToString();
@@ -281,6 +300,22 @@ public class Testing : MonoBehaviour
 
         }
     }
+    IEnumerator DestroyObjectsWithDelay()
+    {
+        yield return new WaitForEndOfFrame(); // Ensure all objects are properly initialized or destroyed in the frame
 
+        GameObject[] gs = GameObject.FindGameObjectsWithTag("gs");
+        foreach (GameObject go in gs)
+        {
+            if (go != null)
+            {
+                DestroyImmediate(go);
+            }
+            else
+            {
+                Debug.Log("Fuck");
+            }
+        }
+    }
 
 }
