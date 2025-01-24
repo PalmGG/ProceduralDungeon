@@ -25,6 +25,7 @@ public class Testing : MonoBehaviour
     GameObject player;
     Rigidbody rb;
     GameObject ob;
+    public Material[] mat; 
 
 
 
@@ -209,6 +210,8 @@ public class Testing : MonoBehaviour
                         ngo = GameObject.CreatePrimitive(PrimitiveType.Cube);
                         ngo.tag = "Start";
                         ngo.layer = 3;
+                        var rend = ngo.GetComponent<Renderer>();
+                        rend.material = mat[0];
                         ngo.GetComponent<MeshRenderer>().material.color = Color.green;
                         ngo.transform.position = go.transform.position;
                         ngo.transform.localScale = new Vector3(cellSize, 1, cellSize);
@@ -220,6 +223,8 @@ public class Testing : MonoBehaviour
                         ngo = GameObject.CreatePrimitive(PrimitiveType.Cube);
                         ngo.tag = "Goal";
                         ngo.layer = 3;
+                        rend = ngo.GetComponent<Renderer>();
+                        rend.material = mat[0];
                         ngo.GetComponent<MeshRenderer>().material.color = Color.red;
                         ngo.transform.position = go.transform.position;
                         ngo.transform.localScale = new Vector3(cellSize, 1, cellSize);
@@ -230,6 +235,8 @@ public class Testing : MonoBehaviour
                         ngo = GameObject.CreatePrimitive(PrimitiveType.Cube);
                         ngo.tag = "RealPlat";
                         ngo.layer = 3;
+                        rend = ngo.GetComponent<Renderer>();
+                        rend.material = mat[0];
                         ngo.transform.position = go.transform.position;
                         Debug.Log(cellSize);
                         ngo.transform.localScale = new Vector3(cellSize, 1, cellSize);
