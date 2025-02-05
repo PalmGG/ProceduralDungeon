@@ -14,7 +14,10 @@ public class MoveFinalSystem : MonoBehaviour
     public float castDistance;
     public LayerMask groundLayer;
     public float jumpforce = 0;
-    
+    public float moveSpeedmulti = 1f;
+
+
+
 
 
     private void Start()
@@ -26,7 +29,6 @@ public class MoveFinalSystem : MonoBehaviour
         inputDirection = move.action.ReadValue<Vector2>();
         movementDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
         movementDirection = transform.TransformDirection(movementDirection);
-
     }
 
     public bool isGrounded()
@@ -53,10 +55,19 @@ public class MoveFinalSystem : MonoBehaviour
         {
             Grav = 0;
         }
-        rb.linearVelocity = new Vector3(movementDirection.x * moveSpeed, rb.linearVelocity.y - Grav + jumpforce, movementDirection.z * moveSpeed);
+        moveSpeed = PlayerStats.speed;
+        rb.linearVelocity = new Vector3(movementDirection.x * ((moveSpeed/10)*moveSpeedmulti), rb.linearVelocity.y - Grav + jumpforce, movementDirection.z * ((moveSpeed / 10) * moveSpeedmulti));
         jumpforce = 0;
     }
 
+    void OnSprint()
+    {
+        moveSpeedmulti = 1.3f;
+    }
+    void OnSprintRel()
+    {
+        moveSpeedmulti = 1f;
+    }
     void OnJump()
     {
         Debug.Log("Jamp");

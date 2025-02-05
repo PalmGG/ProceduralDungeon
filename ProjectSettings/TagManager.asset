@@ -16,6 +16,7 @@ TagManager:
   - Goal
   - Box
   - RealPlat
+  - pm
   layers:
   - Default
   - TransparentFX
