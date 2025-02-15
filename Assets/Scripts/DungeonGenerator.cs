@@ -41,7 +41,7 @@ public class WillTheRealDungeonGeneratorPleaseStandUp : MonoBehaviour
             {
                 pf = prefab[Random.Range(0,prefab.Length)];
                 Debug.Log(gridArray[x, y]);
-                Instantiate(pf, new Vector3(x * 300, 0, y * 300),Quaternion.identity);
+                Instantiate(pf, new Vector3(x * cellSize, 0, y * cellSize),Quaternion.Euler(-90,0,0));
             }
 
         }

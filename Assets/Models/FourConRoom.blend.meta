@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e5dfc051832e09d41a67f04c41771e3d
+guid: 598266e1dbcaa2a49b7b80fbf68dff7c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -12,8 +12,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Pillars
+    second: {fileID: 2100000, guid: 8c30bc402facc824c8b9f5f232d345bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: RealFloor
     second: {fileID: 2100000, guid: a7a4108ec91857442ba26492b970a183, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Slantedroof
+    second: {fileID: -5396234901987582864, guid: e5dfc051832e09d41a67f04c41771e3d, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall
+    second: {fileID: 2100000, guid: 8c30bc402facc824c8b9f5f232d345bc, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
