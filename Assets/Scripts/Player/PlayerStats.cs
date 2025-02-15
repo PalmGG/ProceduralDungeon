@@ -38,6 +38,8 @@ public class PlayerStats : MonoBehaviour {
 }
 */
 using UnityEngine;
+using System.IO;
+
 
 public class PlayerStats : MonoBehaviour
 {
@@ -52,7 +54,12 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        LoadData();
+        string filePath = Application.persistentDataPath + "/save.json";
+
+        if (File.Exists(filePath))
+        {
+            LoadData();
+        }
     }
 
     public void SaveData()
