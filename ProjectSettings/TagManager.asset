@@ -18,6 +18,7 @@ TagManager:
   - RealPlat
   - pm
   - Remove
+  - Boss
   layers:
   - Default
   - TransparentFX

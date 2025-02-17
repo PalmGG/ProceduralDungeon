@@ -24,6 +24,7 @@ public class DungeonGenerator : MonoBehaviour
             }
 
             DestroyImmediate(GameObject.FindGameObjectWithTag("Start"));
+            DestroyImmediate(GameObject.FindGameObjectWithTag("Boss"));
             create = new Dgvt(width, height, cellSize, originPosition, prefab);
         }
     }
@@ -125,8 +126,8 @@ public class Dgvt : MonoBehaviour
         //Vector3 tf;
         int layerMask = ~LayerMask.GetMask("Player");
         int selected = 0;
-        //int lx; //Last value x      (room 2 steps back)
-        //int ly; //Last value y 
+        int lx; //Last value x      (room 2 steps back)
+        int ly; //Last value y 
         int x; //Current value x    (room previously created)
         int y; //Current value y 
         int nx; //New value x       (room about to be created)
@@ -158,7 +159,10 @@ public class Dgvt : MonoBehaviour
         start.name = "Start";
         start.layer = 3;
         start.GetComponent<Renderer>().material.color = Color.green;
+        lx = x;
+        ly = y;
         #endregion
+
         #region First room creation
         if (rotation == 0)
         {
@@ -168,86 +172,143 @@ public class Dgvt : MonoBehaviour
         {
             y++;
         }
-        GameObject first = Instantiate(prefab[Random.Range(3, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(-90, rotation, 0));
+        GameObject first = Instantiate(prefab[Random.Range(4, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(-90, rotation, 0));
         first.tag = "Platform";
-        first.name = "Platform";
+        first.name = "Last";
         first.layer = 3;
         gridArray[x, y] = 1;
         #endregion
+
         #region RestOfTheRooms
         GameObject go;
-        Debug.Log("Last coordinates: " + x + "," + y);
-        int iterate = 0;
-        for (int i = -1; i <= 1; i++)
+        int rooms = 2;
+        //bool twobytwo = false;
+        while (true)
         {
-            for (int j = -1; j <= 1; j++)
+            Debug.Log("Last coordinates: " + x + "," + y);
+            int iterate = 0;
+            for (int i = -1; i <= 1; i++)
             {
-                if (i == 0 && j == 0) continue;
-                nx = x + i;
-                ny = y + j;
-                if (nx != x && ny != y) continue;
-                if (nx >= 0 && nx < gridArray.GetLength(0) && ny >= 0 && ny < gridArray.GetLength(1))
+                for (int j = -1; j <= 1; j++)
                 {
-                    if (gridArray[nx, ny] == 0)
+                    if (i == 0 && j == 0) continue;
+                    nx = x + i;
+                    ny = y + j;
+                    if (nx != x && ny != y) continue;
+                    if (nx >= 0 && nx < gridArray.GetLength(0) && ny >= 0 && ny < gridArray.GetLength(1))
                     {
-                        gridArray[nx, ny] = 2;
-                        iterate++;
-                        Debug.Log($"Availible Neighbor at ({nx}, {ny}):");
-                    }
-                    else
-                    {
-                        //Debug.Log($"Occupied Neighbor at ({nx}, {ny}):");
-                    }
+                        if (gridArray[nx, ny] == 0)
+                        {
+                            gridArray[nx, ny] = 2;
+                            iterate++;
+                            Debug.Log($"Availible Neighbor at ({nx}, {ny}):");
+                        }
+                        else
+                        {
+                            //Debug.Log($"Occupied Neighbor at ({nx}, {ny}):");
+                        }
 
 
+                    }
                 }
             }
-        }
-        random = Random.Range(0, iterate);
-        Debug.Log("Options:" + iterate);
-        Debug.Log("Random:" + random);
-        for (int i = 0; i <= iterate + 1; i++)
-        {
-            Debug.Log("Loop start: " + iterate);
-            int check = 0;
+            if (iterate == 0 || rooms == 10)
+            {
+                go = GameObject.Find("Last");
+                DestroyImmediate(go);
+                Debug.Log(x * cellSize + " | " + y * cellSize);
+                GameObject boss = Instantiate(prefab[1], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
+                boss.tag = "Boss";
+                boss.name = "Boss";
+                boss.layer = 3;
+                break;
+            }
+            random = Random.Range(0, iterate);
+            Debug.Log("Options:" + iterate);
+            Debug.Log("Random:" + random);
+            for (int i = 0; i <= iterate + 1; i++)
+            {
+                Debug.Log("Loop start: " + iterate);
+                int check = 0;
+                for (int a = 0; a < gridArray.GetLength(0); a++)
+                {
+                    for (int b = 0; b < gridArray.GetLength(1); b++)
+                    {
+                        if (gridArray[a, b] == 2 && check == 0 && i == random)
+                        {
+                            gridArray[a, b] = 3;
+                            iterate--;
+                            check++;
+                            rooms++;
+                            Debug.Log("Placed");
+                        }
+                        if (gridArray[a, b] == 2 && check == 0 && i != random)
+                        {
+                            gridArray[a, b] = 0;
+                            iterate--;
+                            check++;
+                        }
+
+                    }
+                }
+
+            }
             for (int a = 0; a < gridArray.GetLength(0); a++)
             {
                 for (int b = 0; b < gridArray.GetLength(1); b++)
                 {
-                    if (gridArray[a, b] == 2 && check == 0 && i == random)
+                    if (gridArray[a, b] == 3)
                     {
-                        gridArray[a, b] = 3;
-                        iterate--;
-                        check++;
-                        Debug.Log("Placed");
+                        if(lx != a && ly != b)
+                        {
+                            //Debug variables
+                            int dx = lx - a;
+                            int dy = ly - b;
+                            if (dx == -1 && dy == -1) // Moving top-right
+                            {
+                                rotation = 90;
+                            }
+                            else if (dx == -1 && dy == 1) // Moving bottom-right
+                            {
+                                rotation = 0;
+                            }
+                            else if (dx == 1 && dy == -1) // Moving top-left
+                            {
+                                rotation = 180;
+                            }
+                            else if (dx == 1 && dy == 1) // Moving bottom-left
+                            {
+                                rotation = -90;
+                            }
+                            Debug.Log("Last: " + lx + "," + ly + "Current: " + x + "," + y + "New: " + a + "," + b + "Difference: " + dx + "," + dy);
+                            go = GameObject.Find("Last");
+                            DestroyImmediate(go);
+                            go = Instantiate(prefab[2], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
+                            go.tag = "Platform";
+                            go.name = "Last";
+                            go.layer = 3;
+                        }
+                        lx = x;
+                        ly = y;
+                        x = a;
+                        y = b;
+                        //if (rooms != 3)
+                        //{
+                            int room = rooms - 2;
+                            go = GameObject.Find("Last");
+                            go.name = "Room: " + room;
+                        //}
+
+                        go = Instantiate(prefab[Random.Range(4, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(-90, rotation, 0));
+                        go.tag = "Platform";
+                        go.name = "Last";
+                        go.layer = 3;
+                        gridArray[x, y] = 1;
                     }
-                    if (gridArray[a, b] == 2 && check == 0 && i != random)
-                    {
-                        gridArray[a, b] = 0;
-                        iterate--;
-                        check++;
-                    }
-                    
                 }
             }
-            
         }
-        for (int a = 0; a < gridArray.GetLength(0); a++)
-        {
-            for (int b = 0; b < gridArray.GetLength(1); b++)
-            {
-                if (gridArray[a, b] == 3)
-                {
-                    x = a;
-                    y = b;
-                    go = Instantiate(prefab[Random.Range(3, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(-90, rotation, 0));
-                    go.tag = "Platform";
-                    go.name = "Platform";
-                    go.layer = 3;
-                    gridArray[x, y] = 1;
-                }
-            }
-        }
+
 
 
         //check how many available coordinates around platform
