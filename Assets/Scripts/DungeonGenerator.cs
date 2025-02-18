@@ -264,23 +264,42 @@ public class Dgvt : MonoBehaviour
                             //Debug variables
                             int dx = lx - a;
                             int dy = ly - b;
-                            if (dx == -1 && dy == -1) // Moving top-right
+                            int cx = lx - x;
+                            int cy = ly - y;
+                            if (dx == -1 && dy == -1 && cx == 0) // Moving top-right
                             {
-                                rotation = 90;
+                                rotation = 270;
                             }
-                            else if (dx == -1 && dy == 1) // Moving bottom-right
-                            {
-                                rotation = 0;
-                            }
-                            else if (dx == 1 && dy == -1) // Moving top-left
+                            else if (dx == -1 && dy == 1 && cx == 0) // Moving bottom-right
                             {
                                 rotation = 180;
                             }
-                            else if (dx == 1 && dy == 1) // Moving bottom-left
+                            else if (dx == 1 && dy == -1 && cx == 0) // Moving top-left
+                            {
+                                rotation = 0;
+                            }
+                            else if (dx == 1 && dy == 1 && cx == 0) // Moving bottom-left
+                            {
+                                rotation = 90;
+                            }
+                            if (dx == -1 && dy == -1 && cy == 0) // Moving top-right
+                            {
+                                rotation = 90;
+                            }
+                            else if (dx == -1 && dy == 1 && cy == 0) // Moving bottom-right
+                            {
+                                rotation = 0;
+                            }
+                            else if (dx == 1 && dy == -1 && cy == 0) // Moving top-left
+                            {
+                                rotation = 180;
+                            }
+                            else if (dx == 1 && dy == 1 && cy == 0) // Moving bottom-left
                             {
                                 rotation = -90;
                             }
-                            Debug.Log("Last: " + lx + "," + ly + "Current: " + x + "," + y + "New: " + a + "," + b + "Difference: " + dx + "," + dy);
+                            
+                            Debug.Log("Last: " + lx + "," + ly + "Current: " + x + "," + y + "New: " + a + "," + b + "Cx: " + cx + "Cy" + cy + "Difference: " + dx + "," + dy);
                             go = GameObject.Find("Last");
                             DestroyImmediate(go);
                             go = Instantiate(prefab[2], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
