@@ -135,6 +135,10 @@ public class Dgvt : MonoBehaviour
         int rotation;
         //GameObject go = Instantiate(prefab[Random.Range(0, prefab.Length)]);
 
+        #region Camera position
+        Camera.main.transform.position = new Vector3(width * cellSize / 2, 150, height * cellSize / 2);
+        #endregion
+
         #region Startroom
         //Select if the spawnroom will be created on the x-axis or y-axis (0 = x) (1 = y)
         int random = Random.Range(0, 2);
@@ -172,16 +176,16 @@ public class Dgvt : MonoBehaviour
         {
             y++;
         }
-        GameObject first = Instantiate(prefab[Random.Range(4, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(-90, rotation, 0));
+        GameObject first = Instantiate(prefab[Random.Range(3, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
         first.tag = "Platform";
         first.name = "Last";
         first.layer = 3;
         gridArray[x, y] = 1;
         #endregion
-
+        //Add new corner rule, if corner chance of 2x2 room, check if space is availible
         #region RestOfTheRooms
         GameObject go;
-        int rooms = 2;
+        int rooms = 0;
         //bool twobytwo = false;
         while (true)
         {
@@ -212,11 +216,27 @@ public class Dgvt : MonoBehaviour
                     }
                 }
             }
-            if (iterate == 0 || rooms == 10)
+            if (iterate == 0 || rooms == width * height / 2)
             {
                 go = GameObject.Find("Last");
                 DestroyImmediate(go);
                 Debug.Log(x * cellSize + " | " + y * cellSize);
+                if (lx - x == 0)
+                {
+                    switch (ly - y)
+                    {
+                        case -1: rotation = 0; break;
+                        case 1: rotation = 180; break;
+                    }
+                }
+                else if (ly - y == 0)
+                {
+                    switch (lx - x)
+                    {
+                        case -1: rotation = 90; break;
+                        case 1: rotation = 270; break;
+                    }
+                }
                 GameObject boss = Instantiate(prefab[1], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
                 boss.tag = "Boss";
                 boss.name = "Boss";
@@ -259,13 +279,13 @@ public class Dgvt : MonoBehaviour
                 {
                     if (gridArray[a, b] == 3)
                     {
-                        if(lx != a && ly != b)
+                        if (lx != a && ly != b)
                         {
                             //Debug variables
-                            int dx = lx - a;
-                            int dy = ly - b;
                             int cx = lx - x;
                             int cy = ly - y;
+                            int dx = lx - a;
+                            int dy = ly - b;
                             if (dx == -1 && dy == -1 && cx == 0) // Moving top-right
                             {
                                 rotation = 270;
@@ -296,9 +316,9 @@ public class Dgvt : MonoBehaviour
                             }
                             else if (dx == 1 && dy == 1 && cy == 0) // Moving bottom-left
                             {
-                                rotation = -90;
+                                rotation = 270;
                             }
-                            
+
                             Debug.Log("Last: " + lx + "," + ly + "Current: " + x + "," + y + "New: " + a + "," + b + "Cx: " + cx + "Cy" + cy + "Difference: " + dx + "," + dy);
                             go = GameObject.Find("Last");
                             DestroyImmediate(go);
@@ -311,14 +331,18 @@ public class Dgvt : MonoBehaviour
                         ly = y;
                         x = a;
                         y = b;
+                        if (lx != x)
+                        {
+                            rotation = 0;
+                        }
+                        else { rotation = 90; }
                         //if (rooms != 3)
                         //{
-                            int room = rooms - 2;
-                            go = GameObject.Find("Last");
-                            go.name = "Room: " + room;
+                        go = GameObject.Find("Last");
+                        go.name = "Room: " + rooms;
                         //}
 
-                        go = Instantiate(prefab[Random.Range(4, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(-90, rotation, 0));
+                        go = Instantiate(prefab[Random.Range(3, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
                         go.tag = "Platform";
                         go.name = "Last";
                         go.layer = 3;
