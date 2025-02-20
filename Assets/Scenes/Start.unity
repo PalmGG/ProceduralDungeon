@@ -168,7 +168,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -311,7 +311,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -386,7 +386,6 @@ GameObject:
   - component: {fileID: 1196990369}
   - component: {fileID: 1196990368}
   - component: {fileID: 1196990367}
-  - component: {fileID: 1196990375}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -484,6 +483,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   jumpforce: 0
+  moveSpeedmulti: 1
 --- !u!136 &1196990371
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -576,18 +576,6 @@ Transform:
   - {fileID: 2049979729}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1196990375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1196990365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89b49a31ab4d36146a4840880f4879cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1232855724
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,6 +588,7 @@ GameObject:
   - component: {fileID: 1232855728}
   - component: {fileID: 1232855727}
   - component: {fileID: 1232855726}
+  - component: {fileID: 1232855729}
   m_Layer: 0
   m_Name: g1
   m_TagString: 0
@@ -696,6 +685,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1232855724}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1232855729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232855724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b49a31ab4d36146a4840880f4879cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g: {fileID: 1196990365}
+  s: F1
 --- !u!1 &1453528421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,7 +1119,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

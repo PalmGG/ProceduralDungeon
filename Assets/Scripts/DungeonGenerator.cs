@@ -176,7 +176,7 @@ public class Dgvt : MonoBehaviour
         {
             y++;
         }
-        GameObject first = Instantiate(prefab[Random.Range(3, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
+        GameObject first = Instantiate(prefab[Random.Range(4, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
         first.tag = "Platform";
         first.name = "Last";
         first.layer = 3;
@@ -241,7 +241,9 @@ public class Dgvt : MonoBehaviour
                 boss.tag = "Boss";
                 boss.name = "Boss";
                 boss.layer = 3;
+                GameObject player = Instantiate(prefab[3], new Vector3(start.transform.position.x, 5, start.transform.position.z), Quaternion.Euler(0, 0, 0));
                 break;
+
             }
             random = Random.Range(0, iterate);
             Debug.Log("Options:" + iterate);
@@ -342,7 +344,7 @@ public class Dgvt : MonoBehaviour
                         go.name = "Room: " + rooms;
                         //}
 
-                        go = Instantiate(prefab[Random.Range(3, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
+                        go = Instantiate(prefab[Random.Range(4, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
                         go.tag = "Platform";
                         go.name = "Last";
                         go.layer = 3;

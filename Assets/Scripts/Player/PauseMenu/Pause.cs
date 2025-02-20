@@ -16,6 +16,7 @@ public class Pause : MonoBehaviour
         Debug.Log(g);
         if (g.activeSelf)
         {
+            Cursor.lockState = CursorLockMode.Locked;
             g.SetActive(false);
             GetComponent<camRotate>().enabled = true;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
@@ -23,6 +24,7 @@ public class Pause : MonoBehaviour
         }
         else
         {
+            Cursor.lockState = CursorLockMode.None;
             GetComponent<camRotate>().enabled = false;
             rb.constraints = RigidbodyConstraints.FreezePosition;
             g.SetActive(true); 

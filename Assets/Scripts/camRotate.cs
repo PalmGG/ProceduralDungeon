@@ -19,6 +19,7 @@ public class camRotate : MonoBehaviour
         pCam = GameObject.FindWithTag("2ndCam");
         playerCamera = pCam.GetComponent<Camera>();
         rb = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
     void Update()
     {
