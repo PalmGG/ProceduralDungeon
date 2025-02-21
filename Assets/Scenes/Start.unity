@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 828538018}
   - component: {fileID: 828538017}
   - component: {fileID: 828538016}
+  - component: {fileID: 828538019}
   m_Layer: 0
   m_Name: g4
   m_TagString: 3
@@ -227,6 +228,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828538014}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &828538019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828538014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b49a31ab4d36146a4840880f4879cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g: {fileID: 1196990365}
+  s: F4
+  sexyteleport: 1
 --- !u!1 &932149533
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +290,7 @@ GameObject:
   - component: {fileID: 1053037400}
   - component: {fileID: 1053037399}
   - component: {fileID: 1053037398}
+  - component: {fileID: 1053037401}
   m_Layer: 0
   m_Name: g3
   m_TagString: 2
@@ -370,6 +387,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1053037396}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1053037401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053037396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b49a31ab4d36146a4840880f4879cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g: {fileID: 1196990365}
+  s: F3
+  sexyteleport: 1
 --- !u!1 &1196990365
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,6 +731,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   g: {fileID: 1196990365}
   s: F1
+  sexyteleport: 1
 --- !u!1 &1453528421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,6 +1115,7 @@ GameObject:
   - component: {fileID: 1871178403}
   - component: {fileID: 1871178402}
   - component: {fileID: 1871178401}
+  - component: {fileID: 1871178404}
   m_Layer: 0
   m_Name: g2
   m_TagString: 1
@@ -1178,6 +1212,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871178399}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1871178404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871178399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b49a31ab4d36146a4840880f4879cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  g: {fileID: 1196990365}
+  s: F2
+  sexyteleport: 1
 --- !u!1 &1980761788
 GameObject:
   m_ObjectHideFlags: 0

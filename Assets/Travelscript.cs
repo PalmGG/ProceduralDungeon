@@ -1,13 +1,22 @@
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Travelscript : MonoBehaviour
 {
-    public GameObject g;
+    GameObject p;
     public string s;
-    private void OnTriggerEnter(Collider g)
+    public bool sexyteleport;
+
+    private void Start()
     {
-        SceneManager.LoadScene(sceneName: s);
+        p = GameObject.FindGameObjectWithTag("Player");
+    }
+    private void OnTriggerEnter(Collider p)
+    {
+        if (sexyteleport == true)
+        {
+            
+            SceneManager.LoadScene(sceneName: s);
+        }
     }
 }

@@ -162,7 +162,6 @@ public class Dgvt : MonoBehaviour
         start.tag = "Start";
         start.name = "Start";
         start.layer = 3;
-        start.GetComponent<Renderer>().material.color = Color.green;
         lx = x;
         ly = y;
         #endregion
