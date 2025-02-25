@@ -25,84 +25,11 @@ public class DungeonGenerator : MonoBehaviour
 
             DestroyImmediate(GameObject.FindGameObjectWithTag("Start"));
             DestroyImmediate(GameObject.FindGameObjectWithTag("Boss"));
+            DestroyImmediate(GameObject.FindGameObjectWithTag("Player"));
             create = new Dgvt(width, height, cellSize, originPosition, prefab);
         }
     }
 }
-
-/*public class WillTheRealDungeonGeneratorPleaseStandUp : MonoBehaviour
-{
-    private int width;
-    private int height;
-    private float cellSize;
-    private Vector3 originPosition;
-    private int[,] gridArray;
-    private GameObject[] prefab;
-    GameObject pf;
-    int lastvaluex;
-    int lastvaluey;
-
-    public WillTheRealDungeonGeneratorPleaseStandUp(int width, int height, float cellSize, Vector3 originPosition, GameObject[] prefab)
-    {
-        this.width = width;
-        this.height = height;
-        this.cellSize = cellSize;
-        this.originPosition = originPosition;
-        this.prefab = prefab;
-        gridArray = new int[width, height];
-        Vector3 tf;
-        int layerMask = ~LayerMask.GetMask("Player");
-        int startselected = 0;
-
-        for (int x = 0; x < gridArray.GetLength(0); x++)
-        {
-            for (int y = 0; y < gridArray.GetLength(1); y++)
-            {
-                tf = new Vector3(x * cellSize, 30, y * cellSize);
-
-                if (Physics.Raycast(tf, Vector3.down, out RaycastHit hit, 30, layerMask))
-                {
-                    Debug.Log("CoolNothingHappened");
-                }
-                else
-                {
-                    int prefabofchoice = Random.Range(0, prefab.Length);
-                    pf = prefab[prefabofchoice];
-                    Debug.Log(gridArray[x, y] + "Ga");
-                    GameObject go = Instantiate(pf, new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(-90, 0, 0));
-                    go.layer = 3;
-                    go.tag = "Platform";
-                    go.name = "Platform";
-                    if (prefabofchoice == 0 && startselected == 0)
-                    {
-                        Renderer rend = go.GetComponent<Renderer>();
-                        int amountMaterials = rend.materials.Length;
-                        for (int i = 0; i < amountMaterials; i++)
-                        {
-                            rend.materials[i].color = Color.green;
-                            go.tag = "Start";
-                            go.name = "Start";
-                        }
-                        startselected++;
-                    }
-                    if (prefabofchoice == 1)
-                    {
-                        go.tag = "nan";
-                        go.name = "nan";
-                    }
-                }
-                lastvaluex = x;
-                lastvaluey = y;
-            }
-        }
-        GameObject[] nan = GameObject.FindGameObjectsWithTag("nan");
-        foreach (GameObject obj in nan)
-        {
-            DestroyImmediate(obj);
-        }
-
-    }
-}*/
 
 public class Dgvt : MonoBehaviour
 {
@@ -133,14 +60,12 @@ public class Dgvt : MonoBehaviour
         int nx; //New value x       (room about to be created)
         int ny; //New value y 
         int rotation;
-        //GameObject go = Instantiate(prefab[Random.Range(0, prefab.Length)]);
 
         #region Camera position
         Camera.main.transform.position = new Vector3(width * cellSize / 2, 150, height * cellSize / 2);
         #endregion
 
         #region Startroom
-        //Select if the spawnroom will be created on the x-axis or y-axis (0 = x) (1 = y)
         int random = Random.Range(0, 2);
         if (random == 0)
         {
@@ -158,7 +83,7 @@ public class Dgvt : MonoBehaviour
         Debug.Log("Startroom has been selected: " + x + "," + y);
         Debug.Log("Selected: " + selected);
         gridArray[x, y] = 1;
-        GameObject start = Instantiate(prefab[0], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0)); //Maybe adjust rotation later based on coordinates
+        GameObject start = Instantiate(prefab[0], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0)); 
         start.tag = "Start";
         start.name = "Start";
         start.layer = 3;
@@ -263,7 +188,7 @@ public class Dgvt : MonoBehaviour
                             rooms++;
                             Debug.Log("Placed");
                         }
-                        if (gridArray[a, b] == 2 && check == 0 && i != random)
+                        else if (gridArray[a, b] == 2 && check == 0 && i != random)
                         {
                             gridArray[a, b] = 0;
                             iterate--;
