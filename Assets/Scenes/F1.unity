@@ -150,13 +150,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 8
   height: 8
-  cellSize: 32
+  cellSize: 40
   originPosition: {x: 0, y: 0, z: 0}
   prefab:
   - {fileID: 9120073012832083748, guid: 8ab8e15fc3685e34992628390a24ba4c, type: 3}
   - {fileID: 1417472219181616581, guid: 975cee7cbd2cc3349a9746ae253753f0, type: 3}
   - {fileID: 2358775158659437805, guid: fc0a8ec523e6d9441bcb1536674a65ed, type: 3}
   - {fileID: 978355952012266182, guid: ce26b726dbaaaf340bf72801b778b2f1, type: 3}
+  - {fileID: 6552837510646332924, guid: 29e85cd9015f83f4e963cf0d9fc03927, type: 3}
   - {fileID: 2633955806740632471, guid: 25f97eff28bf52641bac6e1831fded7b, type: 3}
   - {fileID: 110737164424848394, guid: f355750cdea3b734e8d2d265898883f5, type: 3}
 --- !u!4 &822787512

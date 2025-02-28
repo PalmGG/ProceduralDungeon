@@ -100,17 +100,38 @@ public class Dgvt : MonoBehaviour
         {
             y++;
         }
-        GameObject first = Instantiate(prefab[Random.Range(4, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
+        GameObject first = Instantiate(prefab[Random.Range(5, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
         first.tag = "Platform";
         first.name = "Last";
         first.layer = 3;
         gridArray[x, y] = 1;
+
+        float connectx = 0;
+        float connecty = 0;
+        switch (ly - y)
+        {
+            case -1: connecty = ly + 0.5f; break;
+            case 0: connecty = ly; break;
+            case 1: connecty = y + 0.5f; break;
+        }
+        switch (lx - x)
+        {
+            case -1: connectx = lx + 0.5f; break;
+            case 0: connectx = lx; break;
+            case 1: connectx = x + 0.5f; break;
+        }
+
+        
+
         #endregion
         //Add new corner rule, if corner chance of 2x2 room, check if space is availible
         #region RestOfTheRooms
         GameObject go;
         int rooms = 0;
         //bool twobytwo = false;
+
+        go = Instantiate(prefab[4], new Vector3(connectx * cellSize, 0, connecty * cellSize), Quaternion.Euler(0, rotation + 90, 0));
+
         while (true)
         {
             Debug.Log("Last coordinates: " + x + "," + y);
@@ -253,6 +274,7 @@ public class Dgvt : MonoBehaviour
                             go.name = "Last";
                             go.layer = 3;
                         }
+
                         lx = x;
                         ly = y;
                         x = a;
@@ -262,13 +284,29 @@ public class Dgvt : MonoBehaviour
                             rotation = 0;
                         }
                         else { rotation = 90; }
+
+                        switch (ly - y)
+                        {
+                            case -1: connecty = ly + 0.5f; break;
+                            case 0: connecty = ly; break;
+                            case 1: connecty = y + 0.5f; break;
+                        }
+                        switch (lx - x)
+                        {
+                            case -1: connectx = lx + 0.5f; break;
+                            case 0: connectx = lx; break;
+                            case 1: connectx = x + 0.5f; break;
+                        }
+
+                        go = Instantiate(prefab[4], new Vector3(connectx * cellSize, 0, connecty * cellSize), Quaternion.Euler(0, rotation + 90, 0));
+
                         //if (rooms != 3)
                         //{
                         go = GameObject.Find("Last");
                         go.name = "Room: " + rooms;
                         //}
 
-                        go = Instantiate(prefab[Random.Range(4, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
+                        go = Instantiate(prefab[Random.Range(5, prefab.Length)], new Vector3(x * cellSize, 0, y * cellSize), Quaternion.Euler(0, rotation, 0));
                         go.tag = "Platform";
                         go.name = "Last";
                         go.layer = 3;
