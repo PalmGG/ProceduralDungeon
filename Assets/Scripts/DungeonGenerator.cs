@@ -44,22 +44,22 @@ public class Dgvt : MonoBehaviour
 
     public Dgvt(int width, int height, float cellSize, Vector3 originPosition, GameObject[] prefab)
     {
-        this.width = width;
-        this.height = height;
-        this.cellSize = cellSize;
-        this.originPosition = originPosition;
-        this.prefab = prefab;
-        gridArray = new int[width, height];
-        //Vector3 tf;
+        this.width = width; //Antal rutor på bredden
+        this.height = height; //Antal rutor på höjden
+        this.cellSize = cellSize; //Rutornas storlek
+        this.originPosition = originPosition; //Utgångspunkten för dungeon
+        this.prefab = prefab; //Alla rum som ska instantieras
+        gridArray = new int[width, height]; //Rutnät som innehåller nummer
+        
         int layerMask = ~LayerMask.GetMask("Player");
         int selected = 0;
-        int lx; //Last value x      (room 2 steps back)
-        int ly; //Last value y 
-        int x; //Current value x    (room previously created)
-        int y; //Current value y 
-        int nx; //New value x       (room about to be created)
-        int ny; //New value y 
-        int rotation;
+        int lx; //Förra x-värdet     (room 2 steps back)
+        int ly; //Förra y-värdet 
+        int x; //Nuvarande x-värdet    (room previously created)
+        int y; //Nuvarande y-värdet 
+        int nx; //Nya x-värdet      (room about to be created)
+        int ny; //Nya y-värdet
+        int rotation; //Rotationen för rummet som instantieras
 
         #region Camera position
         Camera.main.transform.position = new Vector3(width * cellSize / 2, 150, height * cellSize / 2);

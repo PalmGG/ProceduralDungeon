@@ -70,7 +70,6 @@ public class MoveFinalSystem : MonoBehaviour
     }
     void OnJump()
     {
-        Debug.Log("Jamp");
         if (isGrounded() == true)
         {
             jumpforce = 20;

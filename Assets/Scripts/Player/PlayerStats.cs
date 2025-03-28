@@ -37,8 +37,8 @@ public class PlayerStats : MonoBehaviour {
     }
 }
 */
-using UnityEngine;
 using System.IO;
+using UnityEngine;
 
 
 public class PlayerStats : MonoBehaviour
@@ -61,7 +61,18 @@ public class PlayerStats : MonoBehaviour
             LoadData();
         }
     }
-
+    public void change(int h, int d, int s, int i, int cc, int cd, int basp, int sp)
+    {
+        health = h;
+        defense = d;
+        strength = s;
+        intelligence = i;
+        critChance = cc;
+        critDamage = cd;
+        bonus_atk_spd = basp;
+        speed = sp;
+        SaveData();
+    }
     public void SaveData()
     {
         PlayerSaveData data = new PlayerSaveData
@@ -78,7 +89,7 @@ public class PlayerStats : MonoBehaviour
 
         SaveSystem.Save(data);
     }
-    
+
     public void LoadData()
     {
         PlayerSaveData data = SaveSystem.Load();
@@ -105,3 +116,6 @@ public class PlayerStats : MonoBehaviour
         public float speed;
     }
 }
+//Camera settings: y.25 z-4.3 || x5
+//Cylinder settings y-1.1 || xz 2.75 y.1
+//Cylinder1 settings y-1.24 || xz 4 y.1

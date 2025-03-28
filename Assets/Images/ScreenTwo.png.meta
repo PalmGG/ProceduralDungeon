@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: b513bfc29f0cd464d839bd8235a8c34a
-AssetOrigin:
-  serializedVersion: 1
-  productId: 51535
-  packageName: 'Hand Painted Textures: Stone Tiles'
-  packageVersion: 1.0
-  assetPath: Assets/FloorTiles01/Textures/Floor_Stone_Grass_Blue.png
-  uploadId: 93280
+guid: debfd41f6d9c2a240b982fb22af8a7e5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -37,7 +30,7 @@ TextureImporter:
   generateCubemap: 6
   cubemapConvolution: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: 1
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
@@ -70,9 +63,9 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
