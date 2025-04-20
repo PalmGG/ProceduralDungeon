@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,10 +14,6 @@ public class MoveFinalSystem : MonoBehaviour
     public float jumpforce = 0;
     public float moveSpeedmulti = 1f;
 
-
-
-
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,7 +27,7 @@ public class MoveFinalSystem : MonoBehaviour
 
     public bool isGrounded()
     {
-      if (Physics.Raycast(transform.position, -transform.up, castDistance, groundLayer))
+        if (Physics.Raycast(transform.position, -transform.up, castDistance, groundLayer))
         {
             return true;
         }
@@ -42,7 +36,6 @@ public class MoveFinalSystem : MonoBehaviour
             return false;
         }
     }
-
 
     // Update is called once per frame
     private void FixedUpdate()
@@ -55,8 +48,8 @@ public class MoveFinalSystem : MonoBehaviour
         {
             Grav = 0;
         }
-        moveSpeed = PlayerStats.speed;
-        rb.linearVelocity = new Vector3(movementDirection.x * ((moveSpeed/10)*moveSpeedmulti), rb.linearVelocity.y - Grav + jumpforce, movementDirection.z * ((moveSpeed / 10) * moveSpeedmulti));
+        moveSpeed = this.GetComponent<PlayerStats>().speed;
+        rb.linearVelocity = new Vector3(movementDirection.x * ((moveSpeed / 10) * moveSpeedmulti), rb.linearVelocity.y - Grav + jumpforce, movementDirection.z * ((moveSpeed / 10) * moveSpeedmulti));
         jumpforce = 0;
     }
 
@@ -75,5 +68,5 @@ public class MoveFinalSystem : MonoBehaviour
             jumpforce = 20;
         }
     }
-    
+
 }

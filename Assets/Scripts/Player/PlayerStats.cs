@@ -43,14 +43,16 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public float health = 100;
+    public float health = 0;
     public float defense = 0;
     public float strength = 0;
-    public float intelligence = 100;
-    public float critChance = 30;
-    public float critDamage = 50;
+    public float intelligence = 0;
+    public float critChance = 0;
+    public float critDamage = 0;
     public float bonus_atk_spd = 0;
-    public static float speed = 100;
+    public float speed = 0;
+    public float lifesteal = 0;
+    public float ability_power = 0;
 
     void Start()
     {
@@ -61,7 +63,7 @@ public class PlayerStats : MonoBehaviour
             LoadData();
         }
     }
-    public void change(int h, int d, int s, int i, int cc, int cd, int basp, int sp)
+    public void change(float h, float d, float s, float i, float cc, float cd, float basp, float sp, float ls, float ap)
     {
         health = h;
         defense = d;
@@ -71,6 +73,8 @@ public class PlayerStats : MonoBehaviour
         critDamage = cd;
         bonus_atk_spd = basp;
         speed = sp;
+        lifesteal = ls;
+        ability_power = ap;
         SaveData();
     }
     public void SaveData()
@@ -84,7 +88,9 @@ public class PlayerStats : MonoBehaviour
             critChance = critChance,
             critDamage = critDamage,
             bonusAttackSpeed = bonus_atk_spd,
-            speed = speed
+            speed = speed,
+            lifesteal = lifesteal,
+            ability_power = ability_power
         };
 
         SaveSystem.Save(data);
@@ -101,6 +107,8 @@ public class PlayerStats : MonoBehaviour
         critDamage = data.critDamage;
         bonus_atk_spd = data.bonusAttackSpeed;
         speed = data.speed;
+        lifesteal = data.lifesteal;
+        ability_power = data.ability_power;
     }
 
     [System.Serializable]
@@ -114,6 +122,8 @@ public class PlayerStats : MonoBehaviour
         public float critDamage;
         public float bonusAttackSpeed;
         public float speed;
+        public float lifesteal;
+        public float ability_power;
     }
 }
 //Camera settings: y.25 z-4.3 || x5

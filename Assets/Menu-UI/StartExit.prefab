@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8642960732878568688}
   - component: {fileID: 1735734204808369442}
   - component: {fileID: 7396975580083761601}
+  - component: {fileID: 7606449080715629581}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -120,7 +121,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1735734204808369442}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7606449080715629581}
+        m_TargetAssemblyTypeName: Exit, Assembly-CSharp
+        m_MethodName: doExitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7606449080715629581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711556926935982224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf23f05b34ba6c4a91b08f641b28174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4039608556973996868
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,6 +333,8 @@ GameObject:
   - component: {fileID: 5590603685083435384}
   - component: {fileID: 8480607521607800630}
   - component: {fileID: 4000880262784128127}
+  - component: {fileID: 6654008427424726002}
+  - component: {fileID: 3692721958031891686}
   m_Layer: 5
   m_Name: Start
   m_TagString: Untagged
@@ -416,7 +443,55 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8480607521607800630}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6654008427424726002}
+        m_TargetAssemblyTypeName: Travelscript, Assembly-CSharp
+        m_MethodName: SB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6654008427424726002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5287333030321568366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b49a31ab4d36146a4840880f4879cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  s: 
+  sexyteleport: 0
+--- !u!114 &3692721958031891686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5287333030321568366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b9a85b58da314418b7d4ac9a2828f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  defense: 0
+  strength: 0
+  intelligence: 0
+  critChance: 0
+  critDamage: 0
+  bonus_atk_spd: 0
+  speed: 0
+  lifesteal: 0
+  ability_power: 0
 --- !u!1 &5409722708096556641
 GameObject:
   m_ObjectHideFlags: 0

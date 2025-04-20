@@ -19,4 +19,24 @@ public class Travelscript : MonoBehaviour
             SceneManager.LoadScene(sceneName: s);
         }
     }
+
+    public void CallTp()
+    {
+        if (sexyteleport == true)
+        {
+            SceneManager.LoadScene(sceneName: s);
+        }
+    }
+
+    public void SB()
+    {
+        if(this.GetComponent<PlayerStats>().speed == 0)
+        {
+            SceneManager.LoadScene(sceneName: "CharacterCreation");
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneName: "Start");
+        }
+    }
 }
